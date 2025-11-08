@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Vouchers!</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f0f0; text-align: center; padding: 20px; display: none; } /* Hidden by default */
+        .voucher { background: white; margin: 10px auto; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); max-width: 400px; }
+        .redeemed { background: #d3d3d3; text-decoration: line-through; }
+        h1 { color: #ff69b4; }
+        button { background: #ff69b4; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; }
+        #error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Happy Birthday, My Love! 🎉</h1>
+    <p>Here are your special vouchers. Click "Redeem" to claim one!</p>
+    
+    <div class="voucher" id="v1">
+        <p>20 continuous cheek kisses</p>
+        <button onclick="redeem('v1')">Redeem</button>
+    </div>
+    <div class="voucher" id="v2">
+        <p>Cycle date to Powai</p>
+        <button onclick="redeem('v2')">Redeem</button>
+    </div>
+    <div class="voucher" id="v3">
+        <p>Go carting together</p>
+        <button onclick="redeem('v3')">Redeem</button>
+    </div>
+    <div class="voucher" id="v4">
+        <p>A free wish</p>
+        <button onclick="redeem('v4')">Redeem</button>
+    </div>
+    <div class="voucher" id="v5">
+        <p>Video game together</p>
+        <button onclick="redeem('v5')">Redeem</button>
+    </div>
+    <div class="voucher" id="v6">
+        <p>Movie night</p>
+        <button onclick="redeem('v6')">Redeem</button>
+    </div>
+    <div class="voucher" id="v7">
+        <p>Dance night</p>
+        <button onclick="redeem('v7')">Redeem</button>
+    </div>
+    <div class="voucher" id="v8">
+        <p>Ice cream at 12 AM</p>
+        <button onclick="redeem('v8')">Redeem</button>
+    </div>
+    <div class="voucher" id="v9">
+        <p>Body massage</p>
+        <button onclick="redeem('v9')">Redeem</button>
+    </div>
+    <div class="voucher" id="v10">
+        <p>Head massage</p>
+        <button onclick="redeem('v10')">Redeem</button>
+    </div>
+
+    <script>
+        // Password prompt on load
+        const password = prompt("Enter the password to access your vouchers:");
+        if (password && password.toLowerCase() === "i love you") {
+            document.body.style.display = "block"; // Show the page
+        } else {
+            alert("Wrong password! Try again.");
+            location.reload(); // Reload if wrong
+        }
+
+        function redeem(id) {
+            const voucher = document.getElementById(id);
+            voucher.classList.add('redeemed');
+            voucher.querySelector('button').style.display = 'none';
+            alert('Voucher redeemed! Enjoy! ❤️');
+        }
+    </script>
+</body>
+</html>
