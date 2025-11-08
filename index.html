@@ -1,22 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Happy Birthday Vouchers!</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f0f0f0; text-align: center; padding: 20px; display: none; } /* Hidden by default */
-        .voucher { background: white; margin: 10px auto; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); max-width: 400px; }
-        .redeemed { background: #d3d3d3; text-decoration: line-through; }
-        h1 { color: #ff69b4; }
-        button { background: #ff69b4; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; }
-        #error { color: red; font-weight: bold; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 20px;
+            display: none; /* Hide content until password is entered */
+        }
+        .voucher {
+            background: white;
+            margin: 10px auto;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+        .redeemed {
+            background: #d3d3d3;
+            text-decoration: line-through;
+        }
+        h1 {
+            color: #ff69b4;
+        }
+        button {
+            background: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #error {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <h1>Happy Birthday, My Love! 🎉</h1>
     <p>Here are your special vouchers. Click "Redeem" to claim one!</p>
-    
+
     <div class="voucher" id="v1">
         <p>20 continuous cheek kisses</p>
         <button onclick="redeem('v1')">Redeem</button>
@@ -59,20 +87,41 @@
     </div>
 
     <script>
-        // Password prompt on load
-        const password = prompt("Enter the password to access your vouchers:");
-        if (password && password.toLowerCase() === "i love you") {
-            document.body.style.display = "block"; // Show the page
+        const PASSWORD = "i love you"; // Set password (lowercase for check)
+
+        // Prompt user for password on page load
+        let password = prompt("Enter the password to access your vouchers:");
+        if (password && password.toLowerCase() === PASSWORD) {
+            document.body.style.display = "block"; // Show content if correct
         } else {
             alert("Wrong password! Try again.");
-            location.reload(); // Reload if wrong
+            location.reload();
         }
 
+        // Load redeemed vouchers from Local Storage or start with empty array
+        let redeemedVouchers = JSON.parse(localStorage.getItem("redeemedVouchers")) || [];
+
+        // Function to mark vouchers redeemed on load
+        redeemedVouchers.forEach(id => {
+            const voucher = document.getElementById(id);
+            if (voucher) {
+                voucher.classList.add("redeemed");
+                voucher.querySelector("button").style.display = "none";
+            }
+        });
+
+        // Redeem function called when voucher button clicked
         function redeem(id) {
             const voucher = document.getElementById(id);
-            voucher.classList.add('redeemed');
-            voucher.querySelector('button').style.display = 'none';
-            alert('Voucher redeemed! Enjoy! ❤️');
+            if (!voucher.classList.contains("redeemed")) {
+                voucher.classList.add("redeemed");
+                voucher.querySelector("button").style.display = "none";
+                alert("Voucher redeemed! Enjoy! ❤️");
+
+                // Save to local storage
+                redeemedVouchers.push(id);
+                localStorage.setItem("redeemedVouchers", JSON.stringify(redeemedVouchers));
+            }
         }
     </script>
 </body>
